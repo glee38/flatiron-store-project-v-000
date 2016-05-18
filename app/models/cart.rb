@@ -17,8 +17,7 @@ class Cart < ActiveRecord::Base
   def total
     total = 0
     self.line_items.each do |line_item|
-      item = Item.find(line_item.item_id)
-      total += (item.price * line_item.quantity)
+      total += (line_item.item.price * line_item.quantity)
     end
     total
   end
@@ -26,9 +25,8 @@ class Cart < ActiveRecord::Base
 
   def checkout
     self.line_items.each do |line_item|
-      item = Item.find(line_item.item_id)
-      item.inventory -= line_item.quantity
-      item.save
+      line_item.item.inventory -= line_item.quantity
+      line_item.item.save
     end
     self.status = "submitted"
     order = self.build_order

@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
 
   def order_item_name_and_quantity
     order_line_items.each_with_object({}) do |line_item, hash|
-      hash[Item.find(line_item.item_id).title] = line_item.quantity, Item.find(line_item.item_id).price
+      hash[line_item.item.title] = line_item.quantity, line_item.item.price
     end
   end
 
