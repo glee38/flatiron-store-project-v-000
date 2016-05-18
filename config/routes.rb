@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :carts
   resources :line_items, only: [:create]
-  resources :orders, only: [:show]
+  resources :orders, only: [:index, :show]
 
   post 'carts/:id/checkout', to: 'carts#checkout', as: 'checkout'
 

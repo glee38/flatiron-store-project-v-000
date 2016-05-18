@@ -1,0 +1,13 @@
+<h1>Your Orders:</h1>
+
+<ul>
+  <% if @orders %>
+    <% @orders.each do |order| %>
+      <p>
+      <strong>Order number:</strong> <%= order.id %><br>
+      <strong>Status:</strong> <%= order.status %><br>
+      <%= link_to "View order", order_path(order) %>
+      </p>
+    <% end %>
+  <% end %>
+</ul>

@@ -2,4 +2,12 @@
   <p><%= notice %></p> 
 <% end %>
 
-Order Status: <%= @order.status %>
+<h1>Order Number: <%= @order.id %></h1>
+<strong>Order Status:</strong> <%= @order.status %><br>
+<strong>Items ordered: </strong>
+  <ul>
+    <% @order_items_hash.each do |name, detail| %>
+      <li><%= name %> | quantity: <%= detail[0] %><br> 
+        price: $<%= detail[1]/100%></li><br>
+    <% end %>
+  </ul>

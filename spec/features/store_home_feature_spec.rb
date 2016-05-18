@@ -9,6 +9,7 @@ describe 'Feature Test: Store', :type => :feature do
     end
 
     describe "Item List" do
+      let (:user) { FactoryGirl.create :user }
       it 'displays all items that have inventory' do
         second_item = Item.second
         second_item.inventory = 0
@@ -35,8 +36,8 @@ describe 'Feature Test: Store', :type => :feature do
 
       context "logged in" do
         before(:each) do
-          @user = User.first
-          login_as(@user, scope: :user)
+          #@user = User.first
+          login_as(user, scope: :user)
         end
 
         it 'does display "Add To Cart" button' do
@@ -48,12 +49,12 @@ describe 'Feature Test: Store', :type => :feature do
     end
 
     describe 'Headers' do
-
+      let (:user) { FactoryGirl.create :user }
       context "not logged in" do
 
         it 'has a sign in link' do
           visit store_path
-          expect(page).to have_link("sign in")
+          expect(page).to have_link("Sign in")
         end
 
         it 'has a sign up link' do
@@ -65,13 +66,13 @@ describe 'Feature Test: Store', :type => :feature do
 
       context "logged in" do
         before(:each) do
-          @user = User.first
-          login_as(@user, scope: :user)
+          #@user = User.first
+          login_as(user, scope: :user)
         end
 
         it "tells the user who they are signed in as" do
           visit store_path
-          expect(page).to have_content("Signed in as #{@user.email}")
+          expect(page).to have_content("Signed in as #{user.email}")
         end
 
         it "has a sign out link" do
@@ -83,7 +84,7 @@ describe 'Feature Test: Store', :type => :feature do
           visit store_path
           click_link("Sign out")
           expect(page.current_path).to eq(store_path)
-          expect(page).to have_link("sign in")
+          expect(page).to have_link("Sign in")
         end
       end
 
